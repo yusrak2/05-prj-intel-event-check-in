@@ -23,6 +23,12 @@ let attendeeCount = 0;
 let celebrationShown = false;
 
 function loadData() {
+  // Clear saved attendees and counts on next load
+  localStorage.removeItem("attendees");
+  localStorage.removeItem("teamCounts");
+  localStorage.removeItem("attendeeCount");
+  localStorage.removeItem("celebrationShown");
+
   const savedAttendees = localStorage.getItem("attendees");
   const savedTeamCounts = localStorage.getItem("teamCounts");
   attendeeCount = parseInt(localStorage.getItem("attendeeCount")) || 0;
