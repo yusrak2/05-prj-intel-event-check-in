@@ -60,7 +60,8 @@ function updateProgressBar() {
 }
 
 function showGreeting(name, team) {
-  // Show a styled welcome message for a short time
+  console.log("showGreeting called with:", name, team);
+  greetingEl.style.opacity = "1";
   greetingEl.innerHTML = `🎉 <strong>Welcome, ${name} from ${teamNames[team]}!</strong>`;
   greetingEl.style.background = "#eaf6ff";
   greetingEl.style.borderRadius = "8px";
@@ -69,13 +70,13 @@ function showGreeting(name, team) {
   greetingEl.style.textAlign = "center";
   greetingEl.style.fontWeight = "bold";
   greetingEl.style.fontSize = "1.2em";
-  greetingEl.style.opacity = "1";
   greetingEl.style.transition = "opacity 1s";
   setTimeout(function () {
     greetingEl.style.opacity = "0";
   }, 4000);
   setTimeout(function () {
     greetingEl.innerHTML = "";
+    greetingEl.style.opacity = "1";
     greetingEl.removeAttribute("style");
   }, 5000);
 }
