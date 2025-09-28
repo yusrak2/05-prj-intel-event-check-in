@@ -119,24 +119,11 @@ function updateTeamDisplay() {
 }
 
 function updateAttendeeList() {
-  let attendeeHtml = '<ul style="margin-top:10px;">';
-  for (let i = 0; i < attendees.length; i++) {
-    attendeeHtml += `<li>Welcome, ${
-      attendees[i].name
-    }! You are checked in for ${teamNames[attendees[i].team]}.`;
-  }
-  attendeeHtml += "</ul>";
+  // Do not show attendee list, only show single welcome message
   let attendeeList = document.getElementById("attendeeList");
-  if (!attendeeList) {
-    attendeeList = document.createElement("div");
-    attendeeList.id = "attendeeList";
-    attendeeList.style.marginTop = "10px";
-    // Place attendeeList right above the check-in form
-    var container = document.querySelector(".container");
-    var form = document.getElementById("checkInForm");
-    container.insertBefore(attendeeList, form);
+  if (attendeeList) {
+    attendeeList.innerHTML = "";
   }
-  attendeeList.innerHTML = attendeeHtml;
 }
 
 checkInForm.addEventListener("submit", function (event) {
