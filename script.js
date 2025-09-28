@@ -60,7 +60,23 @@ function updateProgressBar() {
 }
 
 function showGreeting(name, team) {
-  greetingEl.textContent = `Welcome, ${name}! You are checked in for ${teamNames[team]}.`;
+  // Show a personalized greeting for every person that checks in
+  const hour = new Date().getHours();
+  let timeOfDay = "";
+  if (hour < 12) {
+    timeOfDay = "Good morning";
+  } else if (hour < 18) {
+    timeOfDay = "Good afternoon";
+  } else {
+    timeOfDay = "Good evening";
+  }
+  greetingEl.textContent = `${timeOfDay}, ${name}! You are checked in for ${teamNames[team]}.`;
+  // Keep greeting visible for 10 seconds, then fade out
+  greetingEl.style.opacity = "1";
+  setTimeout(function () {
+    greetingEl.style.transition = "opacity 1s";
+    greetingEl.style.opacity = "0";
+  }, 10000);
 }
 
 function showCelebration() {
