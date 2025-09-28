@@ -61,9 +61,10 @@ function updateProgressBar() {
 
 function showGreeting(name, team) {
   console.log("showGreeting called with:", name, team);
+  greetingEl.style.display = "block";
   greetingEl.style.opacity = "1";
-  greetingEl.innerHTML = `🎉 <strong>Welcome, ${name} from ${teamNames[team]}!</strong>`;
   greetingEl.style.background = "#eaf6ff";
+  greetingEl.style.border = "2px solid #00c7fd";
   greetingEl.style.borderRadius = "8px";
   greetingEl.style.padding = "16px";
   greetingEl.style.marginBottom = "16px";
@@ -71,12 +72,14 @@ function showGreeting(name, team) {
   greetingEl.style.fontWeight = "bold";
   greetingEl.style.fontSize = "1.2em";
   greetingEl.style.transition = "opacity 1s";
+  greetingEl.innerHTML = `🎉 <strong>Welcome, ${name} from ${teamNames[team]}!</strong>`;
   setTimeout(function () {
     greetingEl.style.opacity = "0";
   }, 4000);
   setTimeout(function () {
     greetingEl.innerHTML = "";
     greetingEl.style.opacity = "1";
+    greetingEl.style.display = "";
     greetingEl.removeAttribute("style");
   }, 5000);
 }
