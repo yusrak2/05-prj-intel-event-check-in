@@ -106,16 +106,25 @@ function showCelebration() {
 }
 
 function updateTeamDisplay() {
-  let teamHtml = "";
+  // Update the team numbers in the team cards
+  document.getElementById("waterCount").textContent = teamCounts.water;
+  document.getElementById("zeroCount").textContent = teamCounts.zero;
+  document.getElementById("powerCount").textContent = teamCounts.power;
+
+  let teamHtml = '<div style="margin-bottom:10px;font-weight:bold;">';
   for (const key in teamCounts) {
-    teamHtml += `<div class="team-count" data-team="${key}">${teamNames[key]}: <span>${teamCounts[key]}</span></div>`;
+    teamHtml += `${teamNames[key]}: <span>${teamCounts[key]}</span> &nbsp;`;
   }
+  teamHtml += "</div>";
   let teamDisplay = document.getElementById("teamDisplay");
   if (!teamDisplay) {
     teamDisplay = document.createElement("div");
     teamDisplay.id = "teamDisplay";
-    teamDisplay.style.marginTop = "20px";
-    document.querySelector(".container").appendChild(teamDisplay);
+    teamDisplay.style.marginTop = "10px";
+    // Place teamDisplay right above the check-in form
+    var container = document.querySelector(".container");
+    var form = document.getElementById("checkInForm");
+    container.insertBefore(teamDisplay, form);
   }
   teamDisplay.innerHTML = teamHtml;
   updateAttendeeList();
@@ -124,9 +133,9 @@ function updateTeamDisplay() {
 function updateAttendeeList() {
   let attendeeHtml = '<ul style="margin-top:10px;">';
   for (let i = 0; i < attendees.length; i++) {
-    attendeeHtml += `<li>${attendees[i].name} (${
-      teamNames[attendees[i].team]
-    })</li>`;
+    attendeeHtml += `<li>Welcome, ${
+      attendees[i].name
+    }! You are checked in for ${teamNames[attendees[i].team]}.`;
   }
   attendeeHtml += "</ul>";
   let attendeeList = document.getElementById("attendeeList");
@@ -134,7 +143,10 @@ function updateAttendeeList() {
     attendeeList = document.createElement("div");
     attendeeList.id = "attendeeList";
     attendeeList.style.marginTop = "10px";
-    document.querySelector(".container").appendChild(attendeeList);
+    // Place attendeeList right above the check-in form
+    var container = document.querySelector(".container");
+    var form = document.getElementById("checkInForm");
+    container.insertBefore(attendeeList, form);
   }
   attendeeList.innerHTML = attendeeHtml;
 }
