@@ -60,23 +60,24 @@ function updateProgressBar() {
 }
 
 function showGreeting(name, team) {
-  // Show a personalized greeting for every person that checks in
-  const hour = new Date().getHours();
-  let timeOfDay = "";
-  if (hour < 12) {
-    timeOfDay = "Good morning";
-  } else if (hour < 18) {
-    timeOfDay = "Good afternoon";
-  } else {
-    timeOfDay = "Good evening";
-  }
-  greetingEl.textContent = `${timeOfDay}, ${name}! You are checked in for ${teamNames[team]}.`;
-  // Keep greeting visible for 10 seconds, then fade out
+  // Show a styled welcome message for a short time
+  greetingEl.innerHTML = `🎉 <strong>Welcome, ${name} from ${teamNames[team]}!</strong>`;
+  greetingEl.style.background = "#eaf6ff";
+  greetingEl.style.borderRadius = "8px";
+  greetingEl.style.padding = "16px";
+  greetingEl.style.marginBottom = "16px";
+  greetingEl.style.textAlign = "center";
+  greetingEl.style.fontWeight = "bold";
+  greetingEl.style.fontSize = "1.2em";
   greetingEl.style.opacity = "1";
+  greetingEl.style.transition = "opacity 1s";
   setTimeout(function () {
-    greetingEl.style.transition = "opacity 1s";
     greetingEl.style.opacity = "0";
-  }, 10000);
+  }, 4000);
+  setTimeout(function () {
+    greetingEl.innerHTML = "";
+    greetingEl.removeAttribute("style");
+  }, 5000);
 }
 
 function showCelebration() {
@@ -106,27 +107,14 @@ function showCelebration() {
 }
 
 function updateTeamDisplay() {
-  // Update the team numbers in the team cards
-  document.getElementById("waterCount").textContent = teamCounts.water;
-  document.getElementById("zeroCount").textContent = teamCounts.zero;
-  document.getElementById("powerCount").textContent = teamCounts.power;
-
-  let teamHtml = '<div style="margin-bottom:10px;font-weight:bold;">';
-  for (const key in teamCounts) {
-    teamHtml += `${teamNames[key]}: <span>${teamCounts[key]}</span> &nbsp;`;
-  }
-  teamHtml += "</div>";
-  let teamDisplay = document.getElementById("teamDisplay");
-  if (!teamDisplay) {
-    teamDisplay = document.createElement("div");
-    teamDisplay.id = "teamDisplay";
-    teamDisplay.style.marginTop = "10px";
-    // Place teamDisplay right above the check-in form
-    var container = document.querySelector(".container");
-    var form = document.getElementById("checkInForm");
-    container.insertBefore(teamDisplay, form);
-  }
-  teamDisplay.innerHTML = teamHtml;
+  // Update the team numbers in the team cards (top boxes)
+  var waterCountEl = document.getElementById("waterCount");
+  var zeroCountEl = document.getElementById("zeroCount");
+  var powerCountEl = document.getElementById("powerCount");
+  if (waterCountEl) waterCountEl.textContent = teamCounts.water;
+  if (zeroCountEl) zeroCountEl.textContent = teamCounts.zero;
+  if (powerCountEl) powerCountEl.textContent = teamCounts.power;
+  // Only update attendee list, do not show team counts below
   updateAttendeeList();
 }
 
